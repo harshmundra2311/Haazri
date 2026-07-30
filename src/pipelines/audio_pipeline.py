@@ -8,7 +8,7 @@ import librosa
 def load_voice_encoder():
     return VoiceEncoder()
 
-def get_voice_encoding(audio_bytes):
+def get_voice_embedding(audio_bytes):
     try:
         encoder = load_voice_encoder()
 

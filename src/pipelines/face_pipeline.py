@@ -8,7 +8,7 @@ from sklearn.svm import SVC
 @st.cache_resource
 def load_dlib_models():
     detector = dlib.get_frontal_face_detector()
-    sp = dlib.face_predictor(face_recognition_models.pose_predictor_model_location)
+    sp = dlib.shape_predictor(face_recognition_models.pose_predictor_model_location())
     facerec = dlib.face_recognition_model_v1(
         face_recognition_models.face_recognition_model_location()
     )
@@ -91,7 +91,7 @@ def predict_attendance(class_image_np):
 
         resemblance_threshold = 0.6
 
-        if best_match_score >= resemblance_threshold :
+        if best_match_score <= resemblance_threshold :
             detected_student[predicted_id] = True
 
-        return detected_student, all_students, len(encodings)
+    return detected_student, all_students, len(encodings)
