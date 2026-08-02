@@ -31,13 +31,13 @@ def auto_enroll_dialog(subject_code):
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button('No thanks'):
-            st.query_params.clear()
-            st.rerun()
-    with col2:
         if st.button('Yes enroll now!', type='primary', width='stretch'):
-            enroll_student_to_subject(student_id, subject['subject_id'])
-            st.success('Joined succesfully!')
-            st.query_params.clear()
-            time.sleep(2)
-            st.rerun()
+                    enroll_student_to_subject(student_id, subject['subject_id'])
+                    st.success('Joined succesfully!')
+                    st.query_params.clear()
+                    time.sleep(2)
+                    st.rerun()
+    with col2:
+        if st.button('No thanks'):
+                    st.query_params.clear()
+                    st.rerun()
