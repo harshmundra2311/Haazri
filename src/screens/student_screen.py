@@ -112,10 +112,17 @@ def student_screen():
     st.space()
     st.space()
     
-    show_registration = False
-    photo_source = st.camera_input("Position your face in the center")
+    if 'login_cam_key' not in st.session_state:
+        st.session_state.login_cam_key = 0
+    if 'login_show_registration' not in st.session_state:
+        st.session_state.login_show_registration = False
 
-    if photo_source:
+    photo_source = st.camera_input("Position your face in the center", key=f"login_cam_{st.session_state.login_cam_key}")
+
+    show_registration = st.session_state.login_show_registration
+
+    if photo_source and photo_source is not st.session_state.get('login_last_photo'):
+        st.session_state.login_last_photo = photo_source
         img = np.array(Image.open(photo_source))
 
         with st.spinner('AI is scanning..'):
@@ -141,6 +148,8 @@ def student_screen():
                 else:
                     st.info('Face not recognized! You might be a new student!')
                     show_registration = True
+
+        st.session_state.login_show_registration = show_registration
     if show_registration:
         with st.container(border=True):
             st.header('Register new Profile')
